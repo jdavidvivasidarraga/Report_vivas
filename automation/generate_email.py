@@ -69,7 +69,7 @@ def encode_image(path):
 
 def generate_analysis(summary):
     """Envía el resumen y hasta 3 gráficos a Qwen para redactar el correo."""
-    client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+    client = Groq(api_key=os.environ.get("GROQ_API_KEY", "").strip())
 
     # Build the prompt
     run_date = summary.get("run_date", datetime.now().strftime("%Y-%m-%d"))
@@ -435,7 +435,7 @@ def save_email_to_file(subject, html_body):
 
 def run():
     """Main pipeline."""
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY", "").strip()
     if not api_key:
         print("ERROR: GROQ_API_KEY environment variable not set")
         sys.exit(1)
